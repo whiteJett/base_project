@@ -1,0 +1,20 @@
+from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+class Settings(BaseModel):
+    dashscope_api_key: str = os.getenv("DASHSCOPE_API_KEY", "")  # 千问所需，从阿里云获取
+    qwen_embedding_model: str = "text-embedding-v1"  # 千问官方嵌入模型名（固定）
+    openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
+    model_name: str = os.getenv("MODEL_NAME", "deepseek-chat")
+    chroma_dir: str = os.getenv("CHROMA_DIR", "./data/chroma")
+    chroma_host: str = os.getenv("CHROMA_HOST", "localhost")
+    chroma_port: int = int(os.getenv("CHROMA_PORT", "8000"))
+    collection_name: str = os.getenv("COLLECTION_NAME", "knowledge_base")
+    chunk_size: int = int(os.getenv("CHUNK_SIZE", "800"))
+    chunk_overlap: int = int(os.getenv("CHUNK_OVERLAP", "120"))
+    base_url:str= 'https://api.deepseek.com'
+
+settings = Settings()
